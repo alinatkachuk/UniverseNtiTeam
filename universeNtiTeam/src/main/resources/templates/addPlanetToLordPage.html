@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Planet&Lord</title>
+</head>
+<body>
+<form>
+<form th:method="POST" th:action="@{/planets/join/new}" th:object="${lord}">
+  <select class="form-select" th:field="*{name}">
+    <option th:each="lord : ${lords}" th:value="${lord}" th:text="${lord.getName()}"></option>
+  </select>
+</form>
+  <br>
+<form th:method="POST" th:action="@{/planets/join/new}" th:object="${planet}">
+  <select class="form-select" th:field="*{planetName}">
+    <option th:each="planet : ${planetsWithoutLord}" th:value="${planet}" th:text="${planet.getPlanetName()}"></option>
+  </select>
+</form>
+<input type="submit" value="Connect!">
+</form>
+</body>
+</html>

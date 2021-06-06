@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete a planet</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/planets/delete/bye}" th:object="${planet}">
+  <h4>Choose planet: </h4>
+  <select class="form-select" th:field="*{name}">
+    <option th:each="planet : ${planets}" th:value="${planet}" th:text="${planet.getPlanetName()}"></option>
+  </select>
+  <input type="submit" value="Delete!">
+</form>
+</body>
+</html>
