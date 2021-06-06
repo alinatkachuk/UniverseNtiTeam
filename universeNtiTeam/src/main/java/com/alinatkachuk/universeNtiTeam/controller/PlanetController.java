@@ -32,7 +32,7 @@ public class PlanetController {
         return "redirect:/planets/question";
     }
 
-    @GetMapping("/planets/add")
+    @GetMapping("/planets/delete")
     public String deletePlanetPage (Model model) {
         model.addAttribute ("planets", planetRepository.findAll ());
         return "deletePlanetPage";

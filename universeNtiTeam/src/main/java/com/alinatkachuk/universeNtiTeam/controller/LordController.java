@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class LordController {
 
-    private static Lord lordForAddingPlanet = null;
     private final LordService lordService;
     private final PlanetService planetService;
     private PlanetRepository planetRepository;
@@ -44,7 +43,6 @@ public class LordController {
     @PostMapping("/lords/add/new")
     public String addLord (@ModelAttribute ("lord") Lord lord) {
         lordService.saveLord (lord);
-        lordForAddingPlanet = lord;
         return "redirect:/planets/question";
     }
 
@@ -56,14 +54,16 @@ public class LordController {
     @GetMapping ("/planets/join")
     public String choosePlanetForLord (Model model) {
         model.addAttribute ("planetsWithoutLord", planetRepository.findAllByLordIsNull ());
+        model.addAttribute ("lords", lordRepository.findAll ());
         return "addPlanetToLordPage";
     }
 
     @PostMapping ("/planets/join/new")
-    public String joinPlanetToLordPage (@ModelAttribute ("planet") Planet planet) {
-        planet.setLord (lordForAddingPlanet);
+    public String joinPlanetToLord (@ModelAttribute ("planet") Planet planet,
+                                        @ModelAttribute ("lord") Lord lord) {
+        planet.setLord (lord);
         planetService.editPlanet (planet.getId (), planet);
-        lordService.editLord (lordForAddingPlanet.getId (), lordForAddingPlanet);
+        lordService.editLord (lord.getId (), lord);
         return "redirect:/";
     }
 
