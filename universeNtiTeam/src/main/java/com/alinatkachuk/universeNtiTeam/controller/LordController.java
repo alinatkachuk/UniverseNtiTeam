@@ -7,10 +7,11 @@ import com.alinatkachuk.universeNtiTeam.repository.PlanetRepository;
 import com.alinatkachuk.universeNtiTeam.service.LordService;
 import com.alinatkachuk.universeNtiTeam.service.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class LordController {
 
     private final LordService lordService;
@@ -29,7 +30,7 @@ public class LordController {
         this.lordRepository = lordRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String homePage () {
         return "homePage";
     }

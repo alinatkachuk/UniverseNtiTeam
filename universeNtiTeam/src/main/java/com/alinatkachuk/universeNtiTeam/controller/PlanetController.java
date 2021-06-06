@@ -4,10 +4,11 @@ import com.alinatkachuk.universeNtiTeam.model.Planet;
 import com.alinatkachuk.universeNtiTeam.repository.PlanetRepository;
 import com.alinatkachuk.universeNtiTeam.service.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class PlanetController {
 
     private final PlanetService planetService;
