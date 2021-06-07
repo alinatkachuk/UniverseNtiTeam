@@ -15,7 +15,7 @@ public interface LordRepository extends JpaRepository<Lord, Long> {
 
     Optional<Lord> findById (Long lordId);
 
-    List<Lord> findAllByPlanetsIsNull ();
+    List<Lord> findByPlanetsIsNull ();
 
     List<Lord> findTop10ByOrderByAgeAsc ();
 }

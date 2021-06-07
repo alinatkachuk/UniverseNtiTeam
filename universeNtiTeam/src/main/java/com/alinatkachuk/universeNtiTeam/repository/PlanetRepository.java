@@ -14,5 +14,5 @@ public interface PlanetRepository extends JpaRepository<Planet, Long> {
     @Override
     Optional<Planet> findById(Long planetId);
 
-    List<Planet> findAllByLordIsNull ();
+    List<Planet> findByLordIsNull ();
 }

@@ -16,8 +16,8 @@ public class LordController {
 
     private final LordService lordService;
     private final PlanetService planetService;
-    private PlanetRepository planetRepository;
-    private LordRepository lordRepository;
+    private final PlanetRepository planetRepository;
+    private final LordRepository lordRepository;
 
     @Autowired
     public LordController (LordService lordService,
@@ -54,14 +54,16 @@ public class LordController {
 
     @GetMapping ("/planets/join")
     public String choosePlanetForLord (Model model) {
-        model.addAttribute ("planetsWithoutLord", planetRepository.findAllByLordIsNull ());
+        model.addAttribute ("planetsWithoutLord", planetRepository.findByLordIsNull ());
         model.addAttribute ("lords", lordRepository.findAll ());
         return "addPlanetToLordPage";
     }
 
     @PostMapping ("/planets/join/new")
-    public String joinPlanetToLord (@ModelAttribute ("planet") Planet planet,
-                                        @ModelAttribute ("lord") Lord lord) {
+    public String joinPlanetToLord (@ModelAttribute ("planetId") Long planetId,
+                                        @ModelAttribute ("lordId") Long lordId) {
+        Planet planet = planetRepository.findById (planetId).orElse(new Planet());
+        Lord lord = lordRepository.findById (lordId).orElse(new Lord ());
         planet.setLord (lord);
         planetService.editPlanet (planet.getId (), planet);
         lordService.editLord (lord.getId (), lord);
@@ -70,7 +72,7 @@ public class LordController {
 
     @GetMapping ("/lords/without")
     public String lordsWithoutPlanets (Model model) {
-        model.addAttribute ("lordsWithoutPlanets", lordRepository.findAllByPlanetsIsNull ());
+        model.addAttribute ("lordsWithoutPlanets", lordRepository.findByPlanetsIsNull ());
         return "lordsWithoutPlanetsPage";
     }
 
